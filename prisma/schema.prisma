@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password      String
+  first_name    String
+  last_name     String
+  profile_image String
+  balance       BigInt    @default(0)
+  created_on    DateTime  @default(now())
+  histories     History[] @relation("UserHistories")
+}
+
+enum TransactionType {
+  TOPUP
+  PAYMENT
+}
+
+model Service {
+  id            String    @id @default(uuid())
+  service_code  String    @unique
+  service_name  String
+  service_icon  String
+  service_tarif BigInt
+  created_on    DateTime  @default(now())
+}
+
+model Banner {
+  id            String    @id @default(uuid())
+  banner_name   String
+  banner_image  String
+  description   String
+  created_on    DateTime  @default(now())
+}
+
+model History {
+  id                String  @id @default(uuid())
+  email             String
+  invoice_number    String  @unique
+  transaction_type  TransactionType
+  total_amount      BigInt
+  description       String
+  created_on        DateTime @default(now())
+  user              User    @relation("UserHistories", fields: [email], references: [email], onDelete: Cascade)
+}
