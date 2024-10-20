@@ -1,10 +1,6 @@
-import dotenv from 'dotenv';
 import app from './app';
+import { APP_PORT } from './configs/environment';
 
-dotenv.config();
-
-const PORT = process.env.APP_PORT ?? 4000;
-
-app.listen(PORT, () => {
-  console.log(`Local Server http://localhost:${PORT}`);
+app.listen(APP_PORT, () => {
+  console.log(`Local Server http://localhost:${APP_PORT}`);
 });

@@ -33,7 +33,7 @@ export async function register (req: Request<RegisterRequest>, res: Response, ne
             const errorMessage = error.message;
             if (errorMessage.includes('23505')) {
                 const response: HttpResponse<any> = {
-                    status: 400,
+                    status: 102,
                     message: "Email sudah terdaftar",
                     data: null
                 };
@@ -64,6 +64,7 @@ export async function login(req: Request<LoginRequest>, res: Response, next: Nex
                 const token = createToken({ email: user.email });
                 response.data = { token };
                 response.message = "Login Sukses";
+                response.status = 0;
                 res.json(response);
             }
         }
@@ -79,7 +80,7 @@ export async function profile(req: AuthenticatedRequest<any>, res: Response, nex
             SELECT email, first_name, last_name, profile_image FROM "User" WHERE email = ${email}
         `;
         const response: ProfileResponse = {
-            status: 103,
+            status: 0,
             message: "Sukses",
             data: user[0]
         };

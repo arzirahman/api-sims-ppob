@@ -1,11 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
 import { JwtData } from '../dtos/JwtData';
-import { Service } from '@prisma/client';
-
-dotenv.config();
-const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY || 'your_secret_key';
+import { JWT_SECRET_KEY } from '../configs/environment';
 
 export const hashPassword = async (password: string): Promise<string> => {
     const saltRounds = 10;

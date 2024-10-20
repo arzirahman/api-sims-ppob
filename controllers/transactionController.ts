@@ -113,7 +113,7 @@ export async function history(req: AuthenticatedRequest<any>, res: Response, nex
         const offset = req.query.offset ? parseInt(String(req.query.offset), 10) : 0;
         const limit = req.query.limit ? parseInt(String(req.query.limit), 10) : 3;
         const histories: HistoryResponseData[] = await prisma.$queryRaw`
-            SELECT * from "History"
+            SELECT invoice_number, transaction_type, description, total_amount, created_on from "History"
             WHERE "History".email = ${email}
             ORDER BY created_on DESC
             OFFSET ${offset}
@@ -122,7 +122,11 @@ export async function history(req: AuthenticatedRequest<any>, res: Response, nex
         const response: HistoryResponse = {
             status: 0,
             message: "Top Up Balance berhasil",
-            data: histories.map((history) => ({...history, total_amount: Number(history.total_amount)}))
+            data: {
+                offset, 
+                limit,
+                records: histories.map((history) => ({...history, total_amount: Number(history.total_amount)}))
+            }
         }
         res.json(response);
     } catch (error) {
