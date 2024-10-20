@@ -102,6 +102,6 @@ informationRoutes.get('/banner', banner);
  *                  "data": null
  *               }
  */
-informationRoutes.get('/services', auth, services);
+informationRoutes.get('/services', services);
 
 export default informationRoutes;

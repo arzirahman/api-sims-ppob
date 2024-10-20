@@ -15,9 +15,9 @@ app.use(swaggerRoutes);
 app.use(json());
 
 app.use(membershipRoutes);
-app.use(informationRoutes);
 
 app.use(auth);
+app.use(informationRoutes);
 app.use(transactionRoutes);
 
 app.use(exception)

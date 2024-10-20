@@ -8,7 +8,8 @@
     "start": "node dist/index.js",
     "db:ui": "npx prisma studio",
     "db:migrate": "npx prisma migrate dev --name",
-    "db:generate": "npx prisma generate"
+    "db:generate": "npx prisma generate",
+    "db:seed": "ts-node prisma/seed.ts"
   },
   "keywords": [],
   "author": "Arzi Rahman Al Hafiz",
